@@ -279,7 +279,7 @@ local actingAdjValue = math.abs(adjValue)
 
 local i=0;
   for i=0,rodCount-1 do
-  if actingAdjValue < 0 then
+  if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
 	if tempCRL <= actingAdjValue then
