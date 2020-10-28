@@ -1,4 +1,4 @@
---2:38
+--2:39
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -258,7 +258,7 @@ function calculateAdjustRodsLevel()
 
 	currentRf = currentRf - (rfTotalMax/100) * minPowerRod
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = 0.95*(currentRf/rfInBetween)*100*rodCount)
+  local rodLevel = 1.05*(currentRf/rfInBetween)*100*rodCount)
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
