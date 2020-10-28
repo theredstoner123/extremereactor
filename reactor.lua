@@ -1,4 +1,4 @@
---2:54
+--2:59
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -314,6 +314,22 @@ local actingAdjValue = math.abs(adjValue)
   end
   end
 end
+
+tfile = io.open("debug.txt","w")
+  tfile:write(reactorRodsLevel[0], "\n")
+  tfile:write(reactorRodsLevel[1], "\n")
+  tfile:write(reactorRodsLevel[2], "\n")
+  tfile:write(reactorRodsLevel[3], "\n")
+  tfile:write(reactorRodsLevel[4], "\n")
+  tfile:write(reactorRodsLevel[5], "\n")
+  tfile:write(reactorRodsLevel[6], "\n")
+  tfile:write(reactorRodsLevel[7], "\n")
+  tfile:write(reactorRodsLevel[8], "\n")
+  tfile:write(reactorRodsLevel[9], "\n")
+  tfile:write(reactorRodsLevel[10], "\n")
+  tfile:write(reactorRodsLevel[11], "\n")
+  tfile:flush()
+  tfile:close()
 	
 end
 
