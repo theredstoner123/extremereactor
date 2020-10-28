@@ -1,4 +1,3 @@
---3:30
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -260,6 +259,8 @@ function calculateAdjustRodsLevel()
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
 	
 	local rodLevel = toint((rfInExcess/rfInBetween)*100*rodCount)
+	
+	currentRf = toint(currentRf)
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
@@ -357,7 +358,7 @@ function draw()
 
   if currentRfTick ~= reactor.stats["tick"] then
     currentRfTick = reactor.stats["tick"]
-    local max = math.ceil(graphs["tick"].width * (toint(currentRfTick)/maxRF))
+    local max = math.ceil(graphs["tick"].width * (currentRfTick/maxRF))
     local currentRFTickObj = {x = graphs["tick"].x, y = graphs["tick"].y, width = max, height = graphs["tick"].height}
     printInfos("tick")
     printGraphs("tick")
