@@ -278,15 +278,10 @@ local adjValue = rodLevelNewSum - rodLevelSum
 if adjValue > 0 then
 local actingAdjValue = 0
 actingAdjValue = math.abs(adjValue)
-
-  for i=0,rodCount do
+local i=0;
+  for i=0,rodCount-1 do
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
-	
-	local tfile = io.open("debug.txt","w")
-    tfile:write(adjValue, "\n")
-    tfile:write(tempCRL, "\n")
-    tfile:close()
 	
 	if tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,0)
