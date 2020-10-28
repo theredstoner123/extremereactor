@@ -256,9 +256,10 @@ function calculateAdjustRodsLevel()
 		currentRf = minPower
 	end
 
-	currentRf = currentRf - (rfTotalMax/100) * minPowerRod
+	local rfInExcess = currentRf - minPower
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = toint((currentRf/rfInBetween)*100*rodCount)
+	
+	local rodLevel = toint((rfInExcess/rfInBetween)*100*rodCount)
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
@@ -356,7 +357,7 @@ function draw()
 
   if currentRfTick ~= reactor.stats["tick"] then
     currentRfTick = reactor.stats["tick"]
-    local max = math.ceil(graphs["tick"].width * (currentRfTick/maxRF))
+    local max = math.ceil(graphs["tick"].width * (toint(currentRfTick)/maxRF))
     local currentRFTickObj = {x = graphs["tick"].x, y = graphs["tick"].y, width = max, height = graphs["tick"].height}
     printInfos("tick")
     printGraphs("tick")
