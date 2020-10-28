@@ -1,4 +1,4 @@
---2:25
+--2:33
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -258,7 +258,7 @@ function calculateAdjustRodsLevel()
 
 	currentRf = toint(currentRf - (rfTotalMax/100) * minPowerRod)
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = toint(math.ceil((currentRf/rfInBetween)^0.25*100*rodCount))
+  local rodLevel = toint(math.ceil((currentRf/rfInBetween)*100*rodCount))
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
@@ -269,14 +269,12 @@ end
 
 --new adjustment protocol--
 
-local lastRodIndex
-
 function AdjustRodsLevel(rodLevelNewSum)
 rodCount = reactor.stats["rodCount"]
 rodLevelSum = reactor.stats["rodLevelSum"]
-local adjValue = rodLevelNewSum - rodLevelSum
+local adjValue = rodLevelSum - rodLevelNewSum
 
-if adjValue < 0 then
+if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
 
 local i=0;
@@ -294,15 +292,13 @@ local i=0;
 		actingAdjValue = 0
 	end
   end
-  
-  lastRodIndex = i
   end
 end
 
-if adjValue > 0 then
+if adjValue < 0 then
 local actingAdjValue = math.abs(adjValue)
 
-  for i=lastRodIndex,0,-1 do
+  for i=rodCount-1,0,-1 do
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
