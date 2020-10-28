@@ -276,10 +276,10 @@ actingAdjValue = math.abs(adjValue)
   for i=0,rodCount do
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
-	local tfile = io.open("debug.txt","w")
-    tfile:write(actingAdjValue, "\n")
-    tfile:write(tempCRL, "\n")
-    tfile:close()
+	local file = io.open("debug.txt","w")
+    file:write(actingAdjValue, "\n")
+    file:write(tempCRL, "\n")
+    file:close()
 	if tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,0)
 		actingAdjValue = actingAdjValue - tempCRL
