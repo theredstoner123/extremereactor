@@ -1,4 +1,4 @@
---2:23
+--2:25
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -276,9 +276,9 @@ rodCount = reactor.stats["rodCount"]
 rodLevelSum = reactor.stats["rodLevelSum"]
 local adjValue = rodLevelNewSum - rodLevelSum
 
-if adjValue > 0 then
-local actingAdjValue = 0
-actingAdjValue = math.abs(adjValue)
+if adjValue < 0 then
+local actingAdjValue = math.abs(adjValue)
+
 local i=0;
   for i=0,rodCount-1 do
   if actingAdjValue > 0 then
@@ -299,9 +299,8 @@ local i=0;
   end
 end
 
-if adjValue < 0 then
-local actingAdjValue = 0
-actingAdjValue = math.abs(adjValue)
+if adjValue > 0 then
+local actingAdjValue = math.abs(adjValue)
 
   for i=lastRodIndex,0,-1 do
   if actingAdjValue > 0 then
