@@ -165,7 +165,7 @@ function getInfoFromReactor()
     rodLevelSum = rodLevelSum + value
   end
   reactor.stats["rodLevelSum"] = toint(rodLevelSum)
-  reactor.stats["rods"] = toint(reactorRodsLevel[0])
+  reactor.stats["rods"] = toint(rodLevelSum/rodCount)
   reactor.stats["fuel"] = round(reactorFuelStats["fuelConsumedLastTick"], 2)
   currentRf = reactor.stats["stored"]
 end
