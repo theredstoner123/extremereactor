@@ -1,4 +1,4 @@
---2:33
+--2:38
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -153,8 +153,8 @@ function getInfoFromReactor()
   local reactorFuelStats = reactor.getFuelStats()
   --reactorRodsLevel = reactor.getControlRodsLevels()
 
-  reactor.stats["tick"] = toint(math.ceil(reactorEnergyStats["energyProducedLastTick"]))
-  reactor.stats["stored"] = toint(reactorEnergyStats["energyStored"])
+  reactor.stats["tick"] = reactorEnergyStats["energyProducedLastTick"]
+  reactor.stats["stored"] = reactorEnergyStats["energyStored"]
   reactor.stats["rodCount"] = toint(reactor.getNumberOfControlRods())
   for i=0, reactor.stats["rodCount"] do 
 	reactorRodsLevel[i] = reactor.getControlRodLevel(i)
@@ -256,9 +256,9 @@ function calculateAdjustRodsLevel()
 		currentRf = minPower
 	end
 
-	currentRf = toint(currentRf - (rfTotalMax/100) * minPowerRod)
+	currentRf = currentRf - (rfTotalMax/100) * minPowerRod
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = toint(math.ceil((currentRf/rfInBetween)*100*rodCount))
+  local rodLevel = 0.95*(currentRf/rfInBetween)*100*rodCount)
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
