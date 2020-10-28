@@ -235,7 +235,8 @@ end
 -- Calculate and adjusts the level of the rods
 function calculateAdjustRodsLevel()
 	local rfTotalMax = 10000000
-  currentRf = reactor.stats["stored"]
+	currentRf = reactor.stats["stored"]
+	rodCount = reactor.stats["rodCount"]
 
 	differenceMinMax = maxPowerRod - minPowerRod
 
@@ -252,7 +253,7 @@ function calculateAdjustRodsLevel()
 
 	currentRf = toint(currentRf - (rfTotalMax/100) * minPowerRod)
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = toint(math.ceil((currentRf/rfInBetween)^0.25*100))
+  local rodLevel = toint(math.ceil((currentRf/rfInBetween)^0.25*100*rodCount))
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
@@ -261,12 +262,50 @@ function calculateAdjustRodsLevel()
   end
 end
 
+--new adjustment protocol--
+
+local lastRodIndex
+
 function AdjustRodsLevel(rodLevel)
-  for key,value in pairs(reactorRodsLevel) do 
-    --reactorRodsLevel[key] = rodLevel
-    reactor.setControlRodLevel(key, rodLevel)
+local rodCount = reactor.stats["rodCount"]
+local rodLevelSum = reactor.stats["rodLevelSum"]
+local adjValue = rodLevel - rodLevelSum
+
+if adjValue > 0 then
+local actingAdjValue = math.abs(adjValue)
+  for i=0,rodCount do
+  if actingAdjValue > 0 then
+	local tempCRL = reactor.getControlRodLevel(i)
+	if tempCRL <= actingAdjValue then
+		reactor.setControlRodLevel(i,0)
+		actingAdjValue = actingAdjValue - tempCRL
+	end
+	if tempCRL > actingAdjValue then
+		reactor.setControlRodLevel(i,(tempCRL-actingAdjValue))
+		actingAdjValue = 0
+	end
   end
-  --reactor.setControlRodsLevels(reactorRodsLevel)
+  lastRodIndex = i
+  end
+end
+
+if adjValue < 0 then
+local actingAdjValue = math.abs(adjValue)
+  for i=lastRodIndex,0,-1 do
+  if actingAdjValue > 0 then
+	local tempCRL = reactor.getControlRodLevel(i)
+	if 100-tempCRL <= actingAdjValue then
+		reactor.setControlRodLevel(i,100)
+		actingAdjValue = actingAdjValue - (100 - tempCRL)
+	end
+	if 100-tempCRL > actingAdjValue then
+		reactor.setControlRodLevel(i,(tempCRL+actingAdjValue))
+		actingAdjValue = 0
+	end
+  end
+  end
+end
+	
 end
 
 function AdjustRodsLevelOLD(rodLevel)
