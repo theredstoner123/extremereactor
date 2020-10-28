@@ -274,6 +274,8 @@ local adjValue = rodLevel - rodLevelSum
 if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
   for i=0,rodCount do
+  print(actingAdjValue)
+  print(tempCRL)
   if actingAdjValue > 0 then
 	local tempCRL = reactor.getControlRodLevel(i)
 	if tempCRL <= actingAdjValue then
@@ -281,7 +283,7 @@ local actingAdjValue = math.abs(adjValue)
 		actingAdjValue = actingAdjValue - tempCRL
 	end
 	if tempCRL > actingAdjValue then
-		reactor.setControlRodLevel(i,(tempCRL-actingAdjValue))
+		reactor.setControlRodLevel(i,(tempCRL - actingAdjValue))
 		actingAdjValue = 0
 	end
   end
@@ -299,7 +301,7 @@ local actingAdjValue = math.abs(adjValue)
 		actingAdjValue = actingAdjValue - (100 - tempCRL)
 	end
 	if 100-tempCRL > actingAdjValue then
-		reactor.setControlRodLevel(i,(tempCRL+actingAdjValue))
+		reactor.setControlRodLevel(i,(tempCRL + actingAdjValue))
 		actingAdjValue = 0
 	end
   end
