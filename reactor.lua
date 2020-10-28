@@ -274,8 +274,8 @@ local adjValue = rodLevel - rodLevelSum
 if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
   for i=0,rodCount do
-  print(actingAdjValue)
-  print(tempCRL)
+  Debug.log(actingAdjValue)
+  Debug.log(tempCRL)
   if actingAdjValue > 0 then
 	local tempCRL = reactor.getControlRodLevel(i)
 	if tempCRL <= actingAdjValue then
