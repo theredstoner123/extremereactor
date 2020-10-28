@@ -272,7 +272,7 @@ end
 function AdjustRodsLevel(rodLevelNewSum)
 rodCount = reactor.stats["rodCount"]
 rodLevelSum = reactor.stats["rodLevelSum"]
-local adjValue = rodLevelSum - rodLevelNewSum
+local adjValue = rodLevelNewSum - rodLevelSum
 
 if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
