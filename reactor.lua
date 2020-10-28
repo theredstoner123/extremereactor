@@ -157,7 +157,7 @@ function getInfoFromReactor()
   reactor.stats["rodCount"] = toint(reactor.getNumberOfControlRods())
   local rodLevelSum = 0
   for key,value in pairs(reactorRodsLevel) do 
-    rodLevelSum = rodLevelSum reactor.getControlRodLevel
+    rodLevelSum = rodLevelSum reactor.getControlRodLevel()
   end
   reactor.stats["rodLevelSum"] = toint(rodLevelSum)
   reactor.stats["rods"] = toint(reactorRodsLevel[0])
