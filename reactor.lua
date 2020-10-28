@@ -8,7 +8,7 @@ local reactor = component.br_reactor
 
 local versionType = "NEW"
 
-local DEBUG = true
+local DEBUG = false
 local debugList = {}
 local debugVars = {}
 
@@ -275,7 +275,8 @@ if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
   for i=0,rodCount do
   if actingAdjValue > 0 then
-	local tempCRL = reactor.getControlRodLevel(i)
+	local tempCRL = 0
+	tempCRL = reactor.getControlRodLevel(i)
 	if tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,0)
 		actingAdjValue = actingAdjValue - tempCRL
@@ -293,7 +294,8 @@ if adjValue < 0 then
 local actingAdjValue = math.abs(adjValue)
   for i=lastRodIndex,0,-1 do
   if actingAdjValue > 0 then
-	local tempCRL = reactor.getControlRodLevel(i)
+	local tempCRL = 0
+	tempCRL = reactor.getControlRodLevel(i)
 	if 100-tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,100)
 		actingAdjValue = actingAdjValue - (100 - tempCRL)
