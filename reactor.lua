@@ -282,7 +282,7 @@ local i=0;
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
-	if tempCRL <= actingAdjValue then
+	if 100 - tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,100)
 		actingAdjValue = actingAdjValue - (100 - tempCRL)
 	end
