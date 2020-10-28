@@ -275,7 +275,7 @@ local actingAdjValue = 0
 actingAdjValue = math.abs(adjValue)
   for i=1,rodCount do
   if actingAdjValue > 0 then
-	local tempCRL = reactor.getControlRodLevel(i)
+	local tempCRL = reactorRodsLevel[i]
 	if tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,0)
 		actingAdjValue = actingAdjValue - tempCRL
@@ -294,7 +294,7 @@ local actingAdjValue = 0
 actingAdjValue = math.abs(adjValue)
   for i=lastRodIndex,1,-1 do
   if actingAdjValue > 0 then
-	local tempCRL = reactor.getControlRodLevel(i)
+	local tempCRL = reactorRodsLevel[i]
 	if 100-tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,100)
 		actingAdjValue = actingAdjValue - (100 - tempCRL)
