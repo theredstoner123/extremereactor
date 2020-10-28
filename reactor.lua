@@ -1,4 +1,4 @@
---2:59
+--3:09
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -279,7 +279,7 @@ local actingAdjValue = math.abs(adjValue)
 
 local i=0;
   for i=0,rodCount-1 do
-  if actingAdjValue > 0 then
+  if actingAdjValue < 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
 	if tempCRL <= actingAdjValue then
@@ -299,7 +299,7 @@ if adjValue < 0 then
 local actingAdjValue = math.abs(adjValue)
 
   for i=rodCount-1,0,-1 do
-  if actingAdjValue < 0 then
+  if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
 	if tempCRL <= actingAdjValue then
