@@ -258,7 +258,7 @@ function calculateAdjustRodsLevel()
 
 	currentRf = currentRf - (rfTotalMax/100) * minPowerRod
 	local rfInBetween = (rfTotalMax/100) * differenceMinMax
-  local rodLevel = ((currentRf/rfInBetween)^0.95*100*rodCount)
+  local rodLevel = ((currentRf/rfInBetween)*100*rodCount)
   
   if versionType == "NEW" then
     AdjustRodsLevel(rodLevel)
@@ -299,7 +299,7 @@ if adjValue < 0 then
 local actingAdjValue = math.abs(adjValue)
 
   for i=rodCount-1,0,-1 do
-  if actingAdjValue > 0 then
+  if actingAdjValue < 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
 	if tempCRL <= actingAdjValue then
