@@ -150,14 +150,18 @@ end
 function getInfoFromReactor()
   local reactorEnergyStats = reactor.getEnergyStats()
   local reactorFuelStats = reactor.getFuelStats()
-  reactorRodsLevel = reactor.getControlRodsLevels()
+  --reactorRodsLevel = reactor.getControlRodsLevels()
 
   reactor.stats["tick"] = toint(math.ceil(reactorEnergyStats["energyProducedLastTick"]))
   reactor.stats["stored"] = toint(reactorEnergyStats["energyStored"])
   reactor.stats["rodCount"] = toint(reactor.getNumberOfControlRods())
+  for i=0, reactor.stats["rodCount"] do 
+	reactorRodsLevel[i] = reactor.getControlRodLevel(i)
+  end
+  
   local rodLevelSum = 0
   for key,value in pairs(reactorRodsLevel) do 
-    rodLevelSum = rodLevelSum reactor.getControlRodLevel()
+    rodLevelSum = rodLevelSum + value
   end
   reactor.stats["rodLevelSum"] = toint(rodLevelSum)
   reactor.stats["rods"] = toint(reactorRodsLevel[0])
@@ -270,25 +274,31 @@ function AdjustRodsLevel(rodLevelNewSum)
 rodCount = reactor.stats["rodCount"]
 rodLevelSum = reactor.stats["rodLevelSum"]
 local adjValue = rodLevelNewSum - rodLevelSum
+
 if adjValue > 0 then
 local actingAdjValue = 0
 actingAdjValue = math.abs(adjValue)
+
   for i=0,rodCount do
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
+	
 	local tfile = io.open("debug.txt","w")
-    tfile:write(actingAdjValue, "\n")
+    tfile:write(adjValue, "\n")
     tfile:write(tempCRL, "\n")
     tfile:close()
+	
 	if tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,0)
 		actingAdjValue = actingAdjValue - tempCRL
 	end
+	
 	if tempCRL > actingAdjValue then
 		reactor.setControlRodLevel(i,(tempCRL - actingAdjValue))
 		actingAdjValue = 0
 	end
   end
+  
   lastRodIndex = i
   end
 end
@@ -296,13 +306,16 @@ end
 if adjValue < 0 then
 local actingAdjValue = 0
 actingAdjValue = math.abs(adjValue)
+
   for i=lastRodIndex,0,-1 do
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
+	
 	if 100-tempCRL <= actingAdjValue then
 		reactor.setControlRodLevel(i,100)
 		actingAdjValue = actingAdjValue - (100 - tempCRL)
 	end
+	
 	if 100-tempCRL > actingAdjValue then
 		reactor.setControlRodLevel(i,(tempCRL + actingAdjValue))
 		actingAdjValue = 0
