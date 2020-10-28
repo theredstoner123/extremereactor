@@ -8,7 +8,7 @@ local reactor = component.br_reactor
 
 local versionType = "NEW"
 
-local DEBUG = false
+local DEBUG = true
 local debugList = {}
 local debugVars = {}
 
