@@ -1,4 +1,4 @@
---2:42
+--2:54
 API = require("buttonAPI")
 local filesystem = require("filesystem")
 local component = require("component")
@@ -283,12 +283,12 @@ local i=0;
 	local tempCRL = reactorRodsLevel[i]
 	
 	if tempCRL <= actingAdjValue then
-		reactor.setControlRodLevel(i,0)
-		actingAdjValue = actingAdjValue - tempCRL
+		reactor.setControlRodLevel(i,100)
+		actingAdjValue = actingAdjValue - (100 - tempCRL)
 	end
 	
-	if tempCRL > actingAdjValue then
-		reactor.setControlRodLevel(i,(tempCRL - actingAdjValue))
+	if 100 - tempCRL > actingAdjValue then
+		reactor.setControlRodLevel(i,(tempCRL + actingAdjValue))
 		actingAdjValue = 0
 	end
   end
@@ -302,13 +302,13 @@ local actingAdjValue = math.abs(adjValue)
   if actingAdjValue > 0 then
 	local tempCRL = reactorRodsLevel[i]
 	
-	if 100-tempCRL <= actingAdjValue then
-		reactor.setControlRodLevel(i,100)
-		actingAdjValue = actingAdjValue - (100 - tempCRL)
+	if tempCRL <= actingAdjValue then
+		reactor.setControlRodLevel(i,0)
+		actingAdjValue = actingAdjValue - tempCRL
 	end
 	
-	if 100-tempCRL > actingAdjValue then
-		reactor.setControlRodLevel(i,(tempCRL + actingAdjValue))
+	if tempCRL > actingAdjValue then
+		reactor.setControlRodLevel(i,(tempCRL - actingAdjValue))
 		actingAdjValue = 0
 	end
   end
