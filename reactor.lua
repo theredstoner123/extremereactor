@@ -266,11 +266,11 @@ end
 
 local lastRodIndex
 
-function AdjustRodsLevel(rodLevel)
+function AdjustRodsLevel(rodLevelNewSum)
 rodCount = reactor.stats["rodCount"]
 rodLevelSum = reactor.stats["rodLevelSum"]
-local adjValue = rodLevel - rodLevelSum
-
+local adjValue = rodLevelNewSum - rodLevelSum
+if adjValue == 0 then return end
 if adjValue > 0 then
 local actingAdjValue = math.abs(adjValue)
   for i=0,rodCount do
